@@ -3,13 +3,13 @@
 // la classe Articles hérite de la classe Database
 class Articles extends Database
 {
-/**
- * add Article in our database
- *
- * @param string $title
- * @param string $content
- * @return boolean
- */
+    /**
+     * add Article in our database
+     *
+     * @param string $title
+     * @param string $content
+     * @return boolean
+     */
     public function addArticles(string $title, string $content): bool
     {
         // on se connecte à la base de donnée via la méthode connectDatabase de la classe parent
@@ -23,10 +23,39 @@ class Articles extends Database
         $addQuery->bindValue(':content', $content, PDO::PARAM_STR);
         $addQuery->bindValue(':valid', 1, PDO::PARAM_INT); // nous plaçons arbitrairement une validité à 1
 
+        // Nous testons si la requête s'execute bien
         if ($addQuery->execute()) {
             return true;
         } else {
             return false;
         }
+    }
+
+    /**
+     * Get All Articles from Articles
+     *
+     * @return array
+     */
+    public function getAllArticles(): array
+    {
+        $database = Database::connectDatabase();
+        $query = "SELECT * FROM `articles`";
+        return $database->query($query)->fetchAll();
+    }
+
+    /**
+     * Get infos from one article
+     *
+     * @param integer $article id de l'article
+     * @return array
+     */
+    public function getOneArticle(int $article): array
+    {
+        $database = Database::connectDatabase();
+        $query = "SELECT * FROM `articles` WHERE articles_id = :article";
+        $getOneArticleQuery = $database->prepare($query);
+        $getOneArticleQuery->bindValue(':article', $article, PDO::PARAM_INT);
+        $getOneArticleQuery->execute();
+        return $getOneArticleQuery->fetch();
     }
 }
