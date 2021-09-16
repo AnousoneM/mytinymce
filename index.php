@@ -2,7 +2,18 @@
 session_start();
 
 /////////////////////////////////////////////////////////
-// Logique de connection basé sur session et cookie ////
+///////////// SWAL LOGIQUE //////////////////////////////
+if (isset($_SESSION['swal2']['addSuccess']) && $_SESSION['swal2']['addSuccess'] === true) {
+    $addSuccess = true;
+} else {
+    $addSuccess = 0;
+}
+/////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////
+// Logique de connection basé sur session et cookie /////
+/////////////////////////////////////////////////////////
 $connected = false;
 
 if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
@@ -102,6 +113,24 @@ $allArticlesArray = $articlesObj->getAllArticles();
 
     <!-- DL en local des fichier JS -->
     <script src="public/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Mise en place du CDN Sweet Alert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Mise en place de la sweetAlert -->
+    <script>
+        if (<?= $addSuccess ?>) {
+            Swal.fire({
+                text: 'Article ajouté !',
+                icon: 'success',
+                confirmButtonText: 'Ok'
+            })
+            // .then(() => window.location = '../index.php')
+        }
+    </script>
+
+    //////// maintenant que swal2 a été lancé, on reset la valeur de session avec un false
+    <?php $_SESSION['swal2']['addSuccess'] = false; ?>
 
 </body>
 

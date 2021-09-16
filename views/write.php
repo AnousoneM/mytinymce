@@ -11,7 +11,7 @@ if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
 }
 //////////////////////////////////////////////////
 
-require_once '../controllers/controller-articles.php';
+require_once realpath('..\controllers') . '\controller-articles.php';
 
 ?>
 
@@ -121,20 +121,6 @@ require_once '../controllers/controller-articles.php';
 
     <!-- DL en local des fichier JS -->
     <script src="../public/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Mise en place du CDN Sweet Alert 2 -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <!-- Mise en place de la sweetAlert -->
-    <script>
-        if (<?= $addSuccess ?>) {
-            Swal.fire({
-                text: 'Article ajouté !',
-                icon: 'success',
-                confirmButtonText: 'Ok'
-            }).then(() => window.location = '../index.php')
-        }
-    </script>
 
 </body>
 

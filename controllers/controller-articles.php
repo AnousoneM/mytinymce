@@ -29,6 +29,7 @@ if (isset($_POST['btn-addArticle'])) {
     $response = file_get_contents($url);
     $responseKeys = json_decode($response, true); // decode du json en tableau associatif avec le true
 
+    // Pour debug la réponse du capTCHA
     var_dump($responseKeys);
 
     // Nous testons la clé success pour savoir si nous avons un false
@@ -46,7 +47,8 @@ if (isset($_POST['btn-addArticle'])) {
         $articlesObj = new Articles; // on instancie un obj selon la classe Articles
         // Nous utilisons une conditions pour nous assurer que la requête est OK
         if ($articlesObj->addArticles($title, $content)) {
-            $addSuccess = true;
+            $_SESSION['swal2']['addSuccess'] = true;
+            header('Location: ../index.php');
         } else {
             $errors['addArticles'] = 'Erreur lors d\'ajout de l\'article, veuillez rééssayer';
         }
