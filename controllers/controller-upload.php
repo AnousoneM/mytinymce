@@ -1,15 +1,15 @@
 <?php
-// Allowed origins to upload images
+// nous autorisons les noms de domaine localhost et notre vhost
 $accepted_origins = array("http://localhost", "http://mytinymce");
 
-// Images upload path
+// Chemin du dossier image dans lequel nous allons stocker les images de notre tinyMCE
 $imageFolder = "../public/img/";
 
 reset($_FILES);
 $temp = current($_FILES);
 if(is_uploaded_file($temp['tmp_name'])){
     if(isset($_SERVER['HTTP_ORIGIN'])){
-        // Same-origin requests won't set an origin. If the origin is set, it must be valid.
+
         if(in_array($_SERVER['HTTP_ORIGIN'], $accepted_origins)){
             header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
         }else{

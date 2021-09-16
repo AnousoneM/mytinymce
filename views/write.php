@@ -1,9 +1,7 @@
 <?php
 session_start();
 
-var_dump($_SESSION);
-
-// Logique de connection basé sur session et cookie
+// Logique de connection basé sur session et cookie pour que nous ne puissions pas acceder à la page
 $connected = false;
 
 if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
@@ -101,10 +99,10 @@ require_once '../controllers/controller-articles.php';
 
                     <div class="mb-3">
                         <label for="title" class="form-label fw-bold">Titre</label><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['title'] ?? '' ?><span>
-                                <input type="text" class="form-control" id="title" name="title" placeholder="Mon titre ...">
+                                <input type="text" class="form-control" id="title" value="<?= $_POST['title'] ?? '' ?>" name="title" placeholder="Mon titre ...">
                     </div>
 
-                    <textarea name="content" style="height: 25vw"></textarea>
+                    <textarea name="content" style="height: 25vw"><?= $_POST['content'] ?? ''?></textarea>
 
                     <!-- Mise en place de la div recaptcha avec a la clé fournie dans l'admin -->
                     <div class="g-recaptcha mt-2" data-sitekey="6LdNUWscAAAAAMZmjonzWH-1lraLdtVBW7S1oPXM"></div>

@@ -9,11 +9,21 @@
 
         <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
 
-            <li class="ms-3">
-                <a class="text-muted text-decoration-none" href="../views/login.php">
-                    Connexion<i class="bi bi-person-bounding-box ms-3"></i>
-                </a>
-            </li>
+            <?php if ($connected) { ?>
+                <li class="ms-3">
+                    <a class="text-muted text-decoration-none" href="../views/deconnection.php">
+                        Admin<i class="bi bi-door-open-fill ms-3"></i>
+                    </a>
+                </li>
+            <?php } else { ?>
+                <li class="ms-3">
+                    <a class="text-muted text-decoration-none" href="../views/login.php">
+                        Connexion<i class="bi bi-person-bounding-box ms-3"></i>
+                    </a>
+                </li>
+            <?php } ?>
+
+
         </ul>
     </footer>
 </div>

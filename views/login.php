@@ -2,6 +2,8 @@
 
 session_start();
 
+$connected = false;
+
 var_dump($_POST);
 var_dump($_SESSION);
 
@@ -65,7 +67,8 @@ if (isset($_POST['btn-connection'])) {
                     <div class="mb-3 form-check">
                         <input type="checkbox" class="form-check-input" name="stayConnected" id="stayConnected">
                         <label class="form-check-label" for="stayConnected">Rester connecté(e)</label>
-                    </div>
+                    </div>                    
+                    <button type="button" class="btn btn-secondary" onclick="window.history.back()">Annuler</button>
                     <button type="submit" class="btn btn-primary" name="btn-connection" id="btn-connection">Connexion</button>
                 </form>
             </div>

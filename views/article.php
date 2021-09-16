@@ -1,4 +1,14 @@
 <?php
+session_start();
+
+/////////////////////////////////////////////////////////
+// Logique de connection basé sur session et cookie ////
+$connected = false;
+
+if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
+    $connected = true;
+}
+////////////////////////////////////////////////////////
 
 require_once '../controllers/controller-articles.php';
 

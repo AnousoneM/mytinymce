@@ -10,6 +10,8 @@ session_unset();
 session_destroy();
 setcookie('connected', '', 0, '/');
 
+$connected = false;
+
 ?>
 
 <!DOCTYPE html>

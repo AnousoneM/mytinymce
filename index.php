@@ -1,16 +1,14 @@
 <?php
 session_start();
 
-var_dump($_SESSION);
-var_dump($_COOKIE);
-
-// Logique de connection basé sur session et cookie
+/////////////////////////////////////////////////////////
+// Logique de connection basé sur session et cookie ////
 $connected = false;
 
 if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
     $connected = true;
 }
-//////////////////////////////////////////////////
+////////////////////////////////////////////////////////
 
 require_once 'models/Database.php';
 require_once 'models/Articles.php';
@@ -42,7 +40,7 @@ $allArticlesArray = $articlesObj->getAllArticles();
             <h1 class="text-center">Recap' des articles écrits avec TinyMCE</h1>
         </div>
         <div class="row justify-content-center">
-            <div class="table-responsive shadow-lg col-7 p-4 mb-5">
+            <div class="table-responsive shadow-lg col-7 p-5 mb-5">
                 <table class="table">
                     <thead>
                         <th>#</th>
@@ -51,13 +49,14 @@ $allArticlesArray = $articlesObj->getAllArticles();
                     </thead>
                     <tbody>
 
-
                         <?php
                         foreach ($allArticlesArray as $article) { ?>
                             <tr>
-                                <td><?= $article['articles_id'] ?></td>
-                                <td><a href="views/article.php?article=<?= $article['articles_id'] ?>" class="text-decoration-none text-reset"><i class="bi bi-file-text"></i> <?= $article['articles_title'] ?></a></td>
-                                <td class="text-center"><a href=""><i class="bi bi-pencil-square"></i></a></td>
+                                <td class="fw-bold"><?= $article['articles_id'] ?></td>
+                                <td class="align-middle"><a href="views/article.php?article=<?= $article['articles_id'] ?>" class="text-decoration-none text-reset"><i class="bi bi-file-text h5"></i> <?= $article['articles_title'] ?></a></td>
+                                <td class="text-center">
+                                    <a href="/" class="text-dark"><i class="bi bi-pencil-square h5 me-2"></i></a> / <a href="/" class="text-danger"><i class="bi bi-trash h5 ms-2"></i></a>
+                                </td>
                             </tr>
                         <?php } ?>
 
@@ -85,13 +84,13 @@ $allArticlesArray = $articlesObj->getAllArticles();
                 <?php if ($connected) { ?>
                     <li class="ms-3">
                         <a class="text-muted text-decoration-none" href="views/deconnection.php">
-                        déconnexion<i class="bi bi-door-open-fill ms-3"></i>
+                            Admin<i class="bi bi-door-open-fill ms-3"></i>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li class="ms-3">
                         <a class="text-muted text-decoration-none" href="views/login.php">
-                            connexion<i class="bi bi-person-bounding-box ms-3"></i>
+                            Connexion<i class="bi bi-person-bounding-box ms-3"></i>
                         </a>
                     </li>
                 <?php } ?>
