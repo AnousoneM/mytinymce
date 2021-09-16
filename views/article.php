@@ -10,7 +10,7 @@ if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
 }
 ////////////////////////////////////////////////////////
 
-require_once '../controllers/controller-articles.php';
+require_once realpath('..\controllers') . '\controller-articles.php';
 
 ?>
 
