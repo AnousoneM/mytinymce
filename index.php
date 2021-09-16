@@ -1,10 +1,13 @@
 <?php
 session_start();
 
+var_dump($_SESSION);
+var_dump($_COOKIE);
+
 // Logique de connection basé sur session et cookie
 $connected = false;
 
-if (isset($_SESSION['connected']) && isset($_COOKIE['connected'])) {
+if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
     $connected = true;
 }
 //////////////////////////////////////////////////
@@ -81,14 +84,14 @@ $allArticlesArray = $articlesObj->getAllArticles();
 
                 <?php if ($connected) { ?>
                     <li class="ms-3">
-                        <a class="text-muted text-decoration-none" href="views/decconnection.php">
-                            Admin<i class="bi bi-door-open-fill ms-3"></i>
+                        <a class="text-muted text-decoration-none" href="views/deconnection.php">
+                        déconnexion<i class="bi bi-door-open-fill ms-3"></i>
                         </a>
                     </li>
                 <?php } else { ?>
                     <li class="ms-3">
                         <a class="text-muted text-decoration-none" href="views/login.php">
-                            déconnexion<i class="bi bi-person-bounding-box ms-3"></i>
+                            connexion<i class="bi bi-person-bounding-box ms-3"></i>
                         </a>
                     </li>
                 <?php } ?>

@@ -29,6 +29,8 @@ if (isset($_POST['btn-addArticle'])) {
     $response = file_get_contents($url);
     $responseKeys = json_decode($response, true); // decode du json en tableau associatif avec le true
 
+    var_dump($responseKeys);
+
     // Nous testons la clé success pour savoir si nous avons un false
     if ($responseKeys['success'] === false) {
         $errors['captcha'] = 'Veuillez cocher le captcha';

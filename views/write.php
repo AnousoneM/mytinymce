@@ -1,4 +1,17 @@
 <?php
+session_start();
+
+var_dump($_SESSION);
+
+// Logique de connection basé sur session et cookie
+$connected = false;
+
+if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
+    $connected = true;
+} else {
+    header('Location: login.php');
+}
+//////////////////////////////////////////////////
 
 require_once '../controllers/controller-articles.php';
 
@@ -109,7 +122,7 @@ require_once '../controllers/controller-articles.php';
     <?php include realpath('includes') . '\footer.php' ?>
 
     <!-- DL en local des fichier JS -->
-    <script src="public/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/bootstrap.bundle.min.js"></script>
 
     <!-- Mise en place du CDN Sweet Alert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
