@@ -56,7 +56,7 @@ $allArticlesArray = $articlesObj->getAllArticles();
                                 <td class="fw-bold"><?= $article['articles_id'] ?></td>
                                 <td class="align-middle"><a href="views/article.php?article=<?= $article['articles_id'] ?>" class="text-decoration-none text-reset"><i class="bi bi-file-text h5"></i> <?= $article['articles_title'] ?></a></td>
                                 <td class="text-center">
-                                    <a href="/" class="text-dark"><i class="bi bi-pencil-square h5 me-2"></i></a> / <a href="/" class="text-danger"><i class="bi bi-trash h5 ms-2"></i></a>
+                                    <a href="views/modify.php?article=<?= $article['articles_id'] ?>" class="text-dark"><i class="bi bi-pencil-square h5 me-2"></i></a> / <a href="/" class="text-danger"><i class="bi bi-trash h5 ms-2"></i></a>
                                 </td>
                             </tr>
                         <?php } ?>

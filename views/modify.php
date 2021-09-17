@@ -39,21 +39,40 @@ require_once realpath('../controllers') . '/controller-articles.php';
 
         <div class="row justify-content-center">
             <div class="col-10 shadow-lg p-5 border">
-                <h1 class="mb-5 mt-2 text-center">Création d'un article</h1>
-                <form action="" method="POST">
+                <h1 class="mb-5 mt-2 text-center">Modification d'un article</h1>
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label fw-bold">Titre</label><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['title'] ?? '' ?><span>
-                                <input type="text" class="form-control" id="title" value="<?= $_POST['title'] ?? '' ?>" name="title" placeholder="Mon titre ...">
+                <?php if (isset($_GET['article'])) { ?>
+
+                    <form action="" method="POST">
+
+                        <div class="mb-3">
+                            <label for="title" class="form-label fw-bold">Titre</label>
+                            <!-- span pour injecter les messages d'erreurs -->
+                            <span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['title'] ?? '' ?><span>
+                                    <input type="text" class="form-control" id="title" value="<?= $articleArray['articles_title'] ?? '' ?><?= $_POST['title'] ?? '' ?>" name="title" placeholder="Mon titre ...">
+                        </div>
+
+                        <textarea name="content" style="height: 25vw">
+                    Structure pour afficher : l'article lors d'un GET et afficher lors d'un POST
+                        <?= $articleArray['articles_content'] ?? '' ?>
+                        <?= $_POST['content'] ?? '' ?>
+                    </textarea>
+
+                        <a href="../index.php" class="btn btn-secondary mt-2">Retour</a>
+                        <button type="submit" name="btn-modifyArticle" class="btn btn-outline-primary mt-2" value="<?= $articleArray['articles_id'] ?>">Modifier</button>
+                        <!-- Span pour les messages d'erreurs -->
+                        <p><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['captcha'] ?? '' ?><span></p>
+
+                    </form>
+
+                <?php } else { ?>
+
+                    <p class="text-center">Veuillez selectionner un article dans la liste</p>
+                    <div class="text-center">
+                        <a href="../index.php" class="btn btn-secondary">Liste des articles</a>
                     </div>
 
-                    <textarea name="content" style="height: 25vw"><?= $_POST['content'] ?? '' ?></textarea>
-
-                    <a href="../index.php" class="btn btn-secondary mt-2">Retour</a>
-                    <button type="submit" name="btn-addArticle" class="btn btn-outline-secondary mt-2">Sauvegarder</button>
-                    <p><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['captcha'] ?? '' ?><span></p>
-
-                </form>
+                <?php } ?>
             </div>
         </div>
 

@@ -8,9 +8,9 @@ class Articles extends Database
      *
      * @param string $title
      * @param string $content
-     * @return boolean
+     * @return boolean true when add ok
      */
-    public function addArticles(string $title, string $content): bool
+    public function addArticle(string $title, string $content): bool
     {
         // on se connecte à la base de donnée via la méthode connectDatabase de la classe parent
         $database = Database::connectDatabase();
@@ -57,5 +57,29 @@ class Articles extends Database
         $getOneArticleQuery->bindValue(':article', $article, PDO::PARAM_INT);
         $getOneArticleQuery->execute();
         return $getOneArticleQuery->fetch();
+    }
+
+    /**
+     * Update article in bdd
+     *
+     * @param string $title
+     * @param string $content
+     * @param integer $article
+     * @return boolean true when update OK
+     */
+    public function updateArticle(string $title, string $content, int $article): bool
+    {
+        $database = Database::connectDatabase();
+        $query = "UPDATE `articles` SET `articles_title` = :title, `articles_content` = :content WHERE `articles_id` = :article";
+        $updateArticle = $database->prepare($query);
+        $updateArticle->bindValue(':title', $title, PDO::PARAM_STR);
+        $updateArticle->bindValue(':content', $content, PDO::PARAM_STR);
+        $updateArticle->bindValue(':article', $article, PDO::PARAM_INT);
+        // Nous testons si la requête s'execute bien
+        if ($updateArticle->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
