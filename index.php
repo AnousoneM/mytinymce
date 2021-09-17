@@ -129,7 +129,7 @@ $allArticlesArray = $articlesObj->getAllArticles();
         }
     </script>
 
-    //////// maintenant que swal2 a été lancé, on reset la valeur de session avec un false
+    <!-- maintenant que swal2 a été lancé, on reset la valeur de session avec un false -->
     <?php $_SESSION['swal2']['addSuccess'] = false; ?>
 
 </body>
