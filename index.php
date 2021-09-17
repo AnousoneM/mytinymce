@@ -14,6 +14,28 @@ if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
 require_once 'models/Database.php';
 require_once 'models/Articles.php';
 
+$errors = [];
+
+///////////////////////////////////////////////////
+// LANCEMENT DES CONTROLES SELON LES POST /////////
+///////////////////////////////////////////////////
+
+// on controle le delete button deleteArticle
+if (isset($_POST['btn-deleteArticle'])) {
+
+    // on recupére l'id via la bouton deleteArticle
+    $article = htmlspecialchars($_POST['btn-deleteArticle']);
+
+    $articlesObj = new Articles; // on instancie un obj selon la classe Articles
+
+    if ($articlesObj->deleteArticle($article)) {
+        $_SESSION['swal2'][] = "L'article $article a été supprimé";
+        // header('Location: ../index.php');
+    } else {
+        $errors['addArticles'] = 'Erreur lors de la modification de l\'article, veuillez rééssayer';
+    }
+}
+
 // Affichage de tous les articles 
 $articlesObj = new Articles();
 $allArticlesArray = $articlesObj->getAllArticles();
@@ -54,9 +76,10 @@ $allArticlesArray = $articlesObj->getAllArticles();
                         foreach ($allArticlesArray as $article) { ?>
                             <tr>
                                 <td class="fw-bold"><?= $article['articles_id'] ?></td>
-                                <td class="align-middle"><a href="views/article.php?article=<?= $article['articles_id'] ?>" class="text-decoration-none text-reset"><i class="bi bi-file-text h5"></i> <?= $article['articles_title'] ?></a></td>
+                                <td class="align-middle"><a id="title-<?= $article['articles_id'] ?>" href="views/article.php?article=<?= $article['articles_id'] ?>" class="text-decoration-none text-reset"><i class="bi bi-file-text h5"></i> <?= $article['articles_title'] ?></a></td>
                                 <td class="text-center">
-                                    <a href="views/modify.php?article=<?= $article['articles_id'] ?>" class="text-dark"><i class="bi bi-pencil-square h5 me-2"></i></a> / <a href="/" class="text-danger"><i class="bi bi-trash h5 ms-2"></i></a>
+                                    <a href="views/modify.php?article=<?= $article['articles_id'] ?>" class="text-dark"><i class="bi bi-pencil-square h5 me-2"></i></a> /
+                                    <a href="/" class="text-danger" data-delete-btn="<?= $article['articles_id'] ?>" data-bs-toggle="modal" data-bs-target="#deleteModal"><i class="bi bi-trash h5 ms-2"></i></a>
                                 </td>
                             </tr>
                         <?php } ?>
@@ -65,6 +88,30 @@ $allArticlesArray = $articlesObj->getAllArticles();
                 </table>
             </div>
         </div>
+
+        <!-- Uniq modal ////////////////////////////////////////////////////////////////////////////////////////////// -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p class="modal-title h5" id="modal-title"></p>
+                    </div>
+                    <div class="modal-body">
+                        Vous souhaitez supprimer l'article <span id="modal-articleId" class="fw-bold"></span> ?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                        <!-- On utilise les balises form pour envoyer le post du bouton delete -->
+                        <form action="" method="POST">
+                            <button type="submit" id="btn-deleteArticle" name="btn-deleteArticle" class="btn btn-danger">Effacer</button>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Uniq modal ////////////////////////////////////////////////////////////////////////////////////////////// -->
+
         <div class="row justify-content-center">
             <a href="views/write.php" class="btn btn-outline-dark btn-lg col-3">Nouvel Article<i class="bi bi-pen ps-3"></i></a>
         </div>
@@ -109,9 +156,25 @@ $allArticlesArray = $articlesObj->getAllArticles();
 
     <!-- Mise en place de la sweetAlert -->
     <script>
-        if (<?= isset($_SESSION['swal2']) ?>) {
+        // JS pour rendre la modal dynamique
+        const deleteBtnArray = document.querySelectorAll('[data-delete-btn]')
+        deleteBtnArray.forEach(element => {
+            element.addEventListener('click', function() {
+                // nous allons remplir la modal à l'aide des id
+                let id = this.dataset.deleteBtn
+
+                document.getElementById('modal-title').innerText = document.getElementById('title-' + id).text
+                document.getElementById('modal-articleId').innerText = id
+                document.getElementById('btn-deleteArticle').value = id
+            })
+        })
+
+
+
+
+        if (<?= isset($_SESSION['swal2']) ? true : 0 ?>) {
             Swal.fire({
-                text: '<?= $_SESSION['swal2'][0] ?? '' ?>',
+                text: "<?= $_SESSION['swal2'][0] ?? '' ?>",
                 icon: 'success',
                 confirmButtonText: 'Ok'
             })

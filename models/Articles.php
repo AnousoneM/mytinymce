@@ -82,4 +82,23 @@ class Articles extends Database
             return false;
         }
     }
+
+    /**
+     * Delete article in Bdd
+     *
+     * @param integer $article
+     * @return boolean
+     */
+    public function deleteArticle(int $article): bool
+    {
+        $database = Database::connectDatabase();
+        $query = "DELETE FROM `articles` WHERE `articles_id` = :article";
+        $deleteQuery = $database->prepare($query);
+        $deleteQuery->bindValue(':article', $article, PDO::PARAM_INT);
+        if ($deleteQuery->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

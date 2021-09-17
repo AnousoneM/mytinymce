@@ -29,7 +29,7 @@ if (isset($_POST['btn-modifyArticle'])) {
         $articlesObj = new Articles; // on instancie un obj selon la classe Articles
         // Nous utilisons une conditions pour nous assurer que la requête est OK
         if ($articlesObj->updateArticle($title, $content, $article)) {
-            $_SESSION['swal2'][] = "Article $article modifié" ;
+            $_SESSION['swal2'][] = "Article $article modifié";
             header('Location: ../index.php');
         } else {
             $errors['addArticles'] = 'Erreur lors de la modification de l\'article, veuillez rééssayer';
