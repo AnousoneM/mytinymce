@@ -34,6 +34,39 @@ require_once realpath('../controllers') . '/controller-articles.php';
     <!-- chargement du script tinyMCE avec la clef de l'API -->
     <script src="https://cdn.tiny.cloud/1/l6zdzwloneftfo3c0co24lnp093q2uq0df3ypda2ggw3rbrs/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
+</head>
+
+<body>
+
+    <div class="container pt-3">
+
+        <div class="row justify-content-center">
+            <div class="col-10 shadow-lg p-5 border">
+                <h1 class="mb-5 mt-2 text-center">Création d'un article</h1>
+                <form action="" method="POST">
+
+                    <div class="mb-3">
+                        <label for="title" class="form-label fw-bold">Titre</label><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['title'] ?? '' ?><span>
+                                <input type="text" class="form-control" id="title" value="<?= $_POST['title'] ?? '' ?>" name="title" placeholder="Mon titre ...">
+                    </div>
+
+                    <textarea name="content" style="height: 25vw"><?= $_POST['content'] ?? '' ?></textarea>
+
+                    <a href="../index.php" class="btn btn-secondary mt-2">Retour</a>
+                    <button type="submit" name="btn-addArticle" class="btn btn-outline-secondary mt-2">Sauvegarder</button>
+                    <p><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['captcha'] ?? '' ?><span></p>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+    <?php include realpath('includes') . '/footer.php' ?>
+
+    <!-- DL en local des fichier JS -->
+    <script src="../public/js/bootstrap.bundle.min.js"></script>
+
     <!-- Mise en place du script tiny MCE -->
     <script>
         tinymce.init({
@@ -85,42 +118,6 @@ require_once realpath('../controllers') . '/controller-articles.php';
             file_picker_types: 'file image media'
         });
     </script>
-
-</head>
-
-<body>
-
-    <div class="container pt-3">
-
-        <div class="row justify-content-center">
-            <div class="col-10 shadow-lg p-5 border">
-                <h1 class="mb-5 mt-2 text-center">Création d'un article</h1>
-                <form action="" method="POST">
-
-                    <div class="mb-3">
-                        <label for="title" class="form-label fw-bold">Titre</label><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['title'] ?? '' ?><span>
-                                <input type="text" class="form-control" id="title" value="<?= $_POST['title'] ?? '' ?>" name="title" placeholder="Mon titre ...">
-                    </div>
-
-                    <textarea name="content" style="height: 25vw"><?= $_POST['content'] ?? ''?></textarea>
-
-                    <!-- Mise en place de la div recaptcha avec a la clé fournie dans l'admin -->
-                    <div class="g-recaptcha mt-2" data-sitekey="6LdNUWscAAAAAMZmjonzWH-1lraLdtVBW7S1oPXM"></div>
-
-                    <a href="../index.php" class="btn btn-secondary mt-2">Retour</a>
-                    <button type="submit" name="btn-addArticle" class="btn btn-outline-secondary mt-2">Sauvegarder</button>
-                    <p><span class="ps-1 text-danger fst-italic fw-lighter"><?= $errors['captcha'] ?? '' ?><span></p>
-
-                </form>
-            </div>
-        </div>
-
-    </div>
-
-    <?php include realpath('includes') . '/footer.php' ?>
-
-    <!-- DL en local des fichier JS -->
-    <script src="../public/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -20,7 +20,7 @@ if (isset($_POST['btn-connection'])) {
     // nous verifions si le login et le mdp correspondent bien à l'aide de password_verify
     if (password_verify($_POST['mail'], $login) && password_verify(($_POST['password']), $password)) {
         // création d'une variable de session
-        $_SESSION['connected'] = true;
+        $_SESSION['connected'] = 'myId23';
 
         if ($_POST['stayConnected'] == 'on') {
 

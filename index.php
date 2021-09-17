@@ -2,16 +2,6 @@
 session_start();
 
 /////////////////////////////////////////////////////////
-///////////// SWAL LOGIQUE //////////////////////////////
-if (isset($_SESSION['swal2']['addSuccess']) && $_SESSION['swal2']['addSuccess'] === true) {
-    $addSuccess = true;
-} else {
-    $addSuccess = 0;
-}
-/////////////////////////////////////////////////////////
-
-
-/////////////////////////////////////////////////////////
 // Logique de connection basé sur session et cookie /////
 /////////////////////////////////////////////////////////
 $connected = false;
@@ -119,9 +109,9 @@ $allArticlesArray = $articlesObj->getAllArticles();
 
     <!-- Mise en place de la sweetAlert -->
     <script>
-        if (<?= $addSuccess ?>) {
+        if (<?= isset($_SESSION['swal2']) ?>) {
             Swal.fire({
-                text: 'Article ajouté !',
+                text: '<?= $_SESSION['swal2'][0] ?? '' ?>',
                 icon: 'success',
                 confirmButtonText: 'Ok'
             })
@@ -130,7 +120,7 @@ $allArticlesArray = $articlesObj->getAllArticles();
     </script>
 
     <!-- maintenant que swal2 a été lancé, on reset la valeur de session avec un false -->
-    <?php $_SESSION['swal2']['addSuccess'] = false; ?>
+    <?php unset($_SESSION['swal2']); ?>
 
 </body>
 
