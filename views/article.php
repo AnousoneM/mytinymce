@@ -10,7 +10,7 @@ if (isset($_SESSION['connected']) || isset($_COOKIE['connected'])) {
 }
 ////////////////////////////////////////////////////////
 
-require_once realpath('..\controllers') . '\controller-articles.php';
+require_once realpath('../controllers') . '/controller-articles.php';
 
 ?>
 
@@ -23,7 +23,7 @@ require_once realpath('..\controllers') . '\controller-articles.php';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Tiny MCE</title>
     <!-- DL en local des fichiers css -->
-    <link rel="stylesheet" href="/public/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../public/css/bootstrap.min.css">
     <!-- CDN pour les icones BootStrap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
@@ -50,10 +50,10 @@ require_once realpath('..\controllers') . '\controller-articles.php';
 
     </div>
 
-    <?php include realpath('includes') . '\footer.php' ?>
+    <?php include realpath('includes') . '/footer.php' ?>
 
     <!-- DL en local des fichier JS -->
-    <script src="public/js/bootstrap.bundle.min.js"></script>
+    <script src="../public/js/bootstrap.bundle.min.js"></script>
 
 </body>
 
