@@ -53,7 +53,7 @@ require_once realpath('../controllers') . '/controller-articles.php';
                         </div>
 
                         <textarea name="content" style="height: 25vw">
-                    Structure pour afficher : l'article lors d'un GET et afficher lors d'un POST
+                    <!-- Structure pour afficher : l'article lors d'un GET et afficher lors d'un POST -->
                         <?= $articleArray['articles_content'] ?? '' ?>
                         <?= $_POST['content'] ?? '' ?>
                     </textarea>
